@@ -227,7 +227,7 @@ class MainActivity : ComponentActivity() {
                                 ScreenSerieDetail(
                                     viewModel,
                                     backStackEntry?.arguments?.getInt("idSerie"),
-                                    navController
+                                    navController, windowClass
                                 )
                             }
                             composable(
