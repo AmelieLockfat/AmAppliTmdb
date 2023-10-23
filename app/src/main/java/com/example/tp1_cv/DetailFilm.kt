@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -94,11 +96,13 @@ fun ListeGenresFilm(genres: List<Genre>?) {
     }
 }
 @Composable
-fun Casting(casting: List<Cast>? ,navController : NavController) {
+fun Casting( casting: List<TmdbPerson>? ,navController : NavController) {
     if (casting != null) {
+       Column( modifier = Modifier.background( color= Color(0xFFbdacd1))){
 for (c in casting){
-    Text(""+c.name)
-}
+    CardActeur(tmdbPerson = c, navController = navController) }
+
+}}
 
     }
-}
+

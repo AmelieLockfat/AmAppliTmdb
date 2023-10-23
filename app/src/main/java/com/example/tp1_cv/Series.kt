@@ -28,8 +28,8 @@ fun Series(vm: ViewModel) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ScreenSeries(viewModel: MainViewModel, navController: NavController) {
-    val series by viewModel.series.collectAsState()
+fun ScreenSeries(viewModel: MainViewModel, navController: NavController, series :List<TmdbSerie>) {
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 158.dp),
         modifier = Modifier.background(color = Color(0xFFbdacd1))

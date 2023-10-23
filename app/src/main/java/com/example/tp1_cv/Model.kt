@@ -120,6 +120,7 @@ data class TmdbSerieDetail(
     val adult: Boolean,
     val backdrop_path: String,
     val created_by: List<CreatedBy>,
+    val credits: Credits,
     val episode_run_time: List<Int>,
     val first_air_date: String,
     val genres: List<Genre>,
@@ -286,7 +287,7 @@ data class TmdbMovie1(
 )
 
 data class Credits(
-    val cast: List<Cast>,
+    val cast: List<TmdbPerson>,
     val crew: List<Crew>
 )
 

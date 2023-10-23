@@ -105,6 +105,7 @@ fun Recherche(
         keyboardActions = KeyboardActions(
             onSearch = {
                 when (backStackEntry?.destination?.route) {
+
                     "Films" ->{
                         println(backStackEntry?.destination?.route);
                         navController.navigate("filmsSearch/" + text.text)}

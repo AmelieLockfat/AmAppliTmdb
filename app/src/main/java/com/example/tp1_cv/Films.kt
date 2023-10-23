@@ -20,6 +20,8 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
@@ -42,14 +44,19 @@ fun Films(vm : ViewModel) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ScreenFilm(viewModel: MainViewModel, navController : NavController,  movies: List<TmdbMovie> ) {
+fun ScreenFilm( viewModel: MainViewModel, navController : NavController,  movies: List<TmdbMovie> ) {
 
-    LazyVerticalGrid ( columns = GridCells.Adaptive(minSize = 158.dp), modifier = Modifier.background( color= Color(0xFFbdacd1)))  {
-        items(movies.size) { index ->
-            CardMovie(movies[index], navController )
+
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 158.dp),
+                modifier = Modifier.background(color = Color(0xFFbdacd1))
+            ) {
+                items(movies.size) { index ->
+                    CardMovie(movies[index], navController)
+                }
+            }
         }
-}
-}
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

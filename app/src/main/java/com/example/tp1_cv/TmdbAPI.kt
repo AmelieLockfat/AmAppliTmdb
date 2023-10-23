@@ -48,6 +48,22 @@ interface Api {
         @Query("api_key") api_key: String,
         @Query("language") language: String
     ): TmdbMovieResult
+
+
+    @GET("search/tv")
+    suspend fun searchseries(
+        @Query("query") query: String,
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ): TmdbSerieResult
+
+
+    @GET("search/person")
+    suspend fun searchpeople(
+        @Query("query") query: String,
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ): TmdbPersonResult
 }
 
 

@@ -19,8 +19,8 @@ fun Acteurs (vm: ViewModel) {
 }
 
 @Composable
-fun ScreenActors(viewModel: MainViewModel, navController : NavController) {
-    val persons by viewModel.persons.collectAsState()
+fun ScreenActors(viewModel: MainViewModel, navController : NavController,persons : List<TmdbPerson>) {
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 158.dp),
         modifier = Modifier.background(color = Color(0xFFbdacd1))

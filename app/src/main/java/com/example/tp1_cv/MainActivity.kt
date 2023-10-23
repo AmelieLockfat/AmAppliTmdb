@@ -92,10 +92,16 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             if (currentRoute != "profil_cv") {
                                 TopAppBar(
-                                    title = { if (!oncherche.value){
-                                        Text(text = "Fav'app", fontFamily = FontFamily.Cursive, fontSize =40.sp)}
-                                        else {
-                                        Recherche(navController = navController)}
+                                    title = {
+                                        if (!oncherche.value) {
+                                            Text(
+                                                text = "Fav'app",
+                                                fontFamily = FontFamily.Cursive,
+                                                fontSize = 40.sp
+                                            )
+                                        } else {
+                                            Recherche(navController = navController)
+                                        }
                                     },
                                     actions = {
                                         IconButton(
@@ -178,87 +184,129 @@ class MainActivity : ComponentActivity() {
                             composable("Films") {
                                 val movies by viewModel.movies.collectAsState()
                                 ScreenFilm(
+
                                     viewModel = viewModel,
                                     navController = navController,
-                                    movies =movies
-
+                                    movies = movies
                                 )
                             }
                             composable("Séries") {
+                                val series by viewModel.series.collectAsState()
                                 ScreenSeries(
                                     viewModel = viewModel,
-                                    navController = navController
+                                    navController = navController,
+                                    series = series
                                 )
                             }
                             composable("Acteurs") {
+                                val persons by viewModel.persons.collectAsState()
                                 ScreenActors(
                                     viewModel = viewModel,
-                                    navController = navController
+                                    navController = navController, persons
                                 )
                             }
                             composable(
                                 "filmDetail/{idMovie}",
-                                arguments = listOf(navArgument("idMovie") { type = NavType.IntType })
+                                arguments = listOf(navArgument("idMovie") {
+                                    type = NavType.IntType
+                                })
                             ) {
                                 ScreenDetailFilm(
                                     viewModel,
                                     backStackEntry?.arguments?.getInt("idMovie"),
                                     navController
-                                )}
+                                )
+                            }
                             composable(
                                 "serieDetail/{idSerie}",
-                                arguments = listOf(navArgument("idSerie") { type = NavType.IntType })
+                                arguments = listOf(navArgument("idSerie") {
+                                    type = NavType.IntType
+                                })
                             ) {
                                 ScreenSerieDetail(
                                     viewModel,
                                     backStackEntry?.arguments?.getInt("idSerie"),
                                     navController
-                                )}
-                                composable(
-                                    "peopleDetail/{idPerson}",
-                                    arguments = listOf(navArgument("idPerson") { type = NavType.IntType })
-                                ) {
-                                    ScreenDetailActeur(
-                                        viewModel,
-                                        backStackEntry?.arguments?.getInt("idPerson"),
-                                        navController
-                                    )}
+                                )
+                            }
+                            composable(
+                                "peopleDetail/{idPerson}",
+                                arguments = listOf(navArgument("idPerson") {
+                                    type = NavType.IntType
+                                })
+                            ) {
+                                ScreenDetailActeur(
+                                    viewModel,
+                                    backStackEntry?.arguments?.getInt("idPerson"),
+                                    navController
+                                )
+                            }
                             composable(
                                 "filmsSearch/{searchTerm}",
-                                arguments = listOf(navArgument("searchTerm") { type = NavType.StringType })
+                                arguments = listOf(navArgument("searchTerm") {
+                                    type = NavType.StringType
+                                })
                             ) {
                                 backStackEntry?.arguments?.getString("searchTerm")
                                     ?.let { it1 ->
                                         viewModel.getFilmSearch(it1)
                                         val movies2 by viewModel.searchMovies.collectAsState()
-                                        ScreenFilm(viewModel, navController,movies2)
+                                        ScreenFilm( viewModel, navController, movies2)
                                     }
                             }
+
+                            composable(
+                                "seriesSearch/{searchTerm}",
+                                arguments = listOf(navArgument("searchTerm") {
+                                    type = NavType.StringType
+                                })
+                            ) {
+                                backStackEntry?.arguments?.getString("searchTerm")
+                                    ?.let { it1 ->
+                                        viewModel.getSeriesSearch(it1)
+                                        val series by viewModel.searchSeries.collectAsState()
+                                        ScreenSeries(viewModel, navController, series)
+                                    }
+                            }
+
+                            composable(
+                                "peopleSearch/{searchTerm}",
+                                arguments = listOf(navArgument("searchTerm") {
+                                    type = NavType.StringType
+                                })
+                            ) {
+                                backStackEntry?.arguments?.getString("searchTerm")
+                                    ?.let { it1 ->
+                                        viewModel.getActeursSearch(it1)
+                                        val people by viewModel.searchActeurs.collectAsState()
+                                        ScreenActors(viewModel, navController, people)
+                                    }
                             }
                         }
                     }
                 }
-            }}
-
-
-
-        @Composable
-        fun Greeting(name: String, modifier: Modifier) {
-            Text(
-                text = "$name",
-                modifier = modifier
-            )
+            }
         }
-
-
     }
 
 
-    @Preview(showBackground = true)
     @Composable
-    fun GreetingPreview() {
-        TP1_CVTheme {
-
-        }
+    fun Greeting(name: String, modifier: Modifier) {
+        Text(
+            text = "$name",
+            modifier = modifier
+        )
     }
+
+
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    TP1_CVTheme {
+
+    }
+}
 

@@ -71,8 +71,9 @@ fun ScreenSerieDetail(viewModel: MainViewModel,
                     Text(" / 10", color = Color.White
                         , fontSize = 25.sp, fontWeight = FontWeight.Bold )
                 }
+                Casting(it.credits.cast, navController)
             }
-            //Casting()
+
         }
     }
 }
