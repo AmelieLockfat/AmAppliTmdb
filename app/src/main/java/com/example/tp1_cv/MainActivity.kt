@@ -88,9 +88,10 @@ class MainActivity : ComponentActivity() {
                     color = Color.White
                 )
                 {
-                    Scaffold(
+                   Scaffold(
                         topBar = {
                             if (currentRoute != "profil_cv") {
+
                                 TopAppBar(
                                     title = {
                                         if (!oncherche.value) {
@@ -214,7 +215,7 @@ class MainActivity : ComponentActivity() {
                                 ScreenDetailFilm(
                                     viewModel,
                                     backStackEntry?.arguments?.getInt("idMovie"),
-                                    navController
+                                    navController, windowClass
                                 )
                             }
                             composable(
