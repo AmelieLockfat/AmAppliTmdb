@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -103,50 +105,70 @@ fun ScreenDetailFilm(
                     }
                 }
 
-                else -> {Row( horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically,modifier=Modifier.background(Color(0xFFbdacd1))) {
-                    Column {
-                    Text(
-                    it.title,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-                    if (it.poster_path != null) {
-                        AsyncImage(
-                            model = "https://image.tmdb.org/t/p/w780" + it.poster_path,
-                            modifier = Modifier.size(350.dp),
-                            //defaultMinSize(minHeight = 420.dp),
-                            contentDescription = "seripiddetail",
-                            alignment = Alignment.Center
-                        )
-                    }}
-Column (modifier = Modifier.verticalScroll(rememberScrollState())){
-    Text(
-        "Synopsis : ", color = Color.White, fontSize = 25.sp, fontWeight = Bold
-    )
-    Text(it.overview)
-    Text(
-        "Date de sortie : ",
-        color = Color.White,
-        fontSize = 25.sp,
-        fontWeight = Bold
-    )
-    Text(ladateenString(it.release_date))
+                else -> {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.background(Color(0xFFbdacd1))
+                    ) {
+                        Column (horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.background(Color(0xFFbdacd1))){
+                            Text(
+                                it.title,
+                                fontSize = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1,
+                                modifier = Modifier
+                                    .width(250.dp),
+                                textAlign = TextAlign.Center
+                            )
+                            if (it.poster_path != null) {
+                                AsyncImage(
+                                    model = "https://image.tmdb.org/t/p/w780" + it.poster_path,
+                                    modifier = Modifier.size(350.dp),
+                                    //defaultMinSize(minHeight = 420.dp),
+                                    contentDescription = "seripiddetail",
+                                    alignment = Alignment.Center
+                                )
+                            }
+                        }
+                        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                            Text(
+                                "Synopsis : ",
+                                color = Color.White,
+                                fontSize = 25.sp,
+                                fontWeight = Bold
+                            )
+                            Text(it.overview)
+                            Text(
+                                "Date de sortie : ",
+                                color = Color.White,
+                                fontSize = 25.sp,
+                                fontWeight = Bold
+                            )
+                            Text(ladateenString(it.release_date))
 
 
-    ListeGenresFilm(genres = it.genres)
-    Row() {
-        Text(
-            "Vote : ", color = Color.White, fontSize = 25.sp, fontWeight = Bold
-        )
-        Text("" + it.vote_average, fontSize = 25.sp)
-        Text(
-            " / 10", color = Color.White, fontSize = 25.sp, fontWeight = Bold
-        )
-    }
+                            ListeGenresFilm(genres = it.genres)
+                            Row() {
+                                Text(
+                                    "Vote : ",
+                                    color = Color.White,
+                                    fontSize = 25.sp,
+                                    fontWeight = Bold
+                                )
+                                Text("" + it.vote_average, fontSize = 25.sp)
+                                Text(
+                                    " / 10",
+                                    color = Color.White,
+                                    fontSize = 25.sp,
+                                    fontWeight = Bold
+                                )
+                            }
 
-    Casting(it.credits.cast, navController)}
-}
+                            Casting(it.credits.cast, navController)
+                        }
+                    }
 
                 }
 
@@ -154,6 +176,7 @@ Column (modifier = Modifier.verticalScroll(rememberScrollState())){
         }
     }
 }
+
 @Composable
 fun ListeGenresFilm(genres: List<Genre>?) {
     if (genres != null) {
